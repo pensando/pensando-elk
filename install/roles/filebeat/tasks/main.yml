@@ -1,0 +1,87 @@
+---
+#
+# install/run filebeat elk client
+#
+- name: Symlink Python to Python3 for EL8/Fedora
+  file:
+    src: /usr/bin/python3
+    dest: /usr/bin/python
+    state: link
+  when: ansible_distribution_major_version|int >= 8 and ansible_python_version|int < 3.6
+  ignore_errors: true
+
+- name: Switch to Python3 by Default (Fedora/EL8)
+  command: alternatives --install /usr/bin/python python /usr/bin/python3 1
+  when: ansible_python_version|int < 3.6 and ansible_distribution_major_version|int >= 8
+
+- name: Install filebeat rpms
+  yum:
+    name: filebeat
+  become: true
+  when: (logging_backend != 'fluentd')
+
+- name: Install filebeat rpms (EL8/Fedora)
+  dnf:
+    name: filebeat
+  become: true
+  when: logging_backend != 'fluentd' and ansible_distribution_major_version|int >= 8
+
+- name: Generate filebeat configuration template
+  template:
+    src=filebeat.yml.j2
+    dest=/etc/filebeat/filebeat.yml
+    owner=root
+    group=root
+    mode=0644
+  become: true
+  when: (logging_backend != 'fluentd')
+  register: filebeat_needs_restart
+
+- name: Start filebeat service
+  service:
+    name: filebeat
+    state: started
+  ignore_errors: true
+  become: true
+  when: ((filebeat_needs_restart != 0) and (logging_backend != 'fluentd'))
+
+- name: Setup filebeat service
+  service: name=filebeat state=started enabled=true
+  become: true
+  when: (logging_backend != 'fluentd')
+
+- name: Install rsyslogd for fluentd
+  yum:
+    name: rsyslog
+  become: true
+  when: (logging_backend == 'fluentd')
+
+- name: Install rsyslogd for fluentd (EL8/Fedora)
+  dnf:
+    name: rsyslog
+  become: true
+  when: logging_backend == 'fluentd' and ansible_distribution_major_version|int >= 8
+
+- name: Setup rsyslogd for fluentd
+  lineinfile: dest=/etc/rsyslog.conf \
+          line="*.* @{{ elk_server }}:{{ fluentd_syslog_port }}"
+  when: (logging_backend == 'fluentd')
+  register: rsyslog_updated
+  become: true
+
+- name: Setup common OpenStack rsyslog logging
+  template:
+    src=rsyslog-openstack.conf.j2
+    dest=/etc/rsyslog.d/openstack-logs.conf
+    owner=root
+    group=root
+    mode=0644
+  become: true
+  register: rsyslog_updated
+  when: (logging_backend == 'fluentd')
+
+- name: Restarting rsyslog for fluentd
+  command: systemctl restart rsyslog.service
+  ignore_errors: true
+  when: rsyslog_updated != 0
+  become: true

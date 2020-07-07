@@ -1,0 +1,184 @@
+---
+#
+# Install/run logstash
+#
+
+- name: Copy logstash yum repo file
+  copy:
+    src=logstash.repo
+    dest=/etc/yum.repos.d/logstash.repo
+    owner=root
+    group=root
+    mode=0644
+  become: true
+
+- name: Install logstash rpms
+  dnf:
+    name: logstash-oss
+    state: present
+  become: true
+
+- name: Copy logstash filter configuration
+  template:
+    src=logstash.conf.j2
+    dest=/etc/logstash/conf.d/logstash.conf
+    owner=logstash
+    group=logstash
+    mode=0644
+  become: true
+
+# Logstash will only run as root unless we want to redeux every single
+# dir/file permission that it needs to access. No thanks.
+- name: Update logstash startup to run as root
+  become: true
+  lineinfile:
+    path=/etc/logstash/startup.options
+    regexp='^LS_USER=logstash'
+    line='LS_USER=root'
+
+- name: Create symbolic link for logstash config files
+  file:
+    src: "/etc/logstash"
+    dest: "/usr/share/logstash/config"
+    state: link
+  become: true
+
+# workaround, sometimes they forget to package this
+# https://github.com/elastic/logstash/issues/1130
+- name: Ensure logstash systemd unit file is present
+  copy:
+    src=logstash.service
+    dest=/etc/systemd/system/logstash.service
+    owner=root
+    group=root
+    mode=0644
+    force=no
+  register: logstash_unit_copied
+  become: true
+
+- name: Reload Systemd if we copied in logstash.service unit file
+  command: systemctl daemon-reload
+  when: logstash_unit_copied != 0
+  become: true
+
+# we need a workaround for netty wanting to use /tmp
+# on most systems this is mounted via noexec for security reasons
+# https://discuss.elastic.co/t/problem-with-cipher-in-beat-input/67841/5
+
+- name: Create tmpdir for logstash netty
+  file:
+    path: /usr/share/logstash/tmpfile
+    state: directory
+    owner: logstash
+    group: logstash
+    mode: 0755
+  become: true
+
+- name: Apply logstash netty tmpdir workaround
+  lineinfile:
+    path=/etc/logstash/jvm.options
+    line='-Dio.netty.native.workdir=/usr/share/logstash/tmpfile/'
+  become: true
+
+- name: Load OpenSSL CA Extended Configuration
+  template:
+    src=openssl_extras.cnf.j2
+    dest=/etc/pki/tls/openssl_extras.cnf
+    owner=root
+    group=root
+    mode=0644
+  become: true
+
+- name: Check OpenSSL SANs (SubjectAltName) entry for CA
+  shell: grep "{{ ansible_default_ipv4.address }}" /etc/pki/tls/openssl.cnf | wc -l
+  ignore_errors: true
+  register: subjectAltName_exists
+  tags:
+    # Skip ANSIBLE0012 Commands should not change things if nothing needs doing
+    # Need to understand if an entry exists
+    - skip_ansible_lint
+  become: true
+
+- name: Add OpenSSL SANs (SubjectAltName) entry for CA
+  lineinfile:
+    dest: /etc/pki/tls/openssl.cnf
+    line: 'subjectAltName = "IP: {{ ansible_default_ipv4.address }}"'
+    regexp: '^ Extensions for a typical CA'
+    insertbefore: '# Extensions for a typical CA'
+    backup: yes
+  when: subjectAltName_exists.stdout|int == 0
+  become: true
+
+- name: Load filebeat JSON index template
+  uri:
+    url: http://localhost:9200/_template/filebeat?pretty
+    method: POST
+    body: "{{ lookup('file', 'filebeat-index-template.json') }}"
+    body_format: json
+    return_content: yes
+  register: filebeatJSON_output
+  until: '"json" in filebeatJSON_output and filebeatJSON_output.json.acknowledged == true'
+  retries: 30
+  delay: 10
+  become: true
+  when: not install_elasticsearch_xpack or not install_logstash_xpack or not install_kibana_xpack
+
+## Disable IPv6 because logstash/udp syslog has issues with it.
+# https://github.com/logstash-plugins/logstash-input-syslog/issues/42
+- name: Disable IPv6 with sysctl
+  sysctl: name={{ item }} value=1 state=present
+  with_items:
+    - net.ipv6.conf.all.disable_ipv6
+    - net.ipv6.conf.default.disable_ipv6
+    - net.ipv6.conf.lo.disable_ipv6
+  ignore_errors: true
+  become: true
+
+- name: Determine if ipv6 is a loadable module
+  command: /sbin/lsmod | grep ipv6 | grep -v nf
+  register: ipv6loadable
+  ignore_errors: true
+
+- name: Disable IPv6 via rmmod
+  lineinfile: "dest=/etc/modprobe.conf line='install ipv6 /bin/true' create=yes"
+  notify:
+    - rmmodipv6
+  when: ansible_os_family == 'RedHat' and ipv6loadable.rc != 1
+  become: true
+  ignore_errors: true
+
+- include: ipv6-grub-disable.yml
+
+- name: Disabling IPv6 via sysconfig/network
+  lineinfile:
+    dest: /etc/sysconfig/network
+    regexp: "^{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backup: yes
+    create: yes
+  with_items:
+    - { regexp: 'NETWORKING_IPV6=.*', line: 'NETWORKING_IPV6=NO' }
+    - { regexp: 'IPV6INIT=.*', line: 'IPV6INIT=no' }
+  notify:
+    - restart Network
+    - restart NetworkManager
+  when: ansible_os_family == 'RedHat'
+  become: true
+  ignore_errors: true
+
+# # X-Pack requires additional authentication
+# - name: Load filebeat JSON index template (X-Pack enabled)
+#   uri:
+#     url: http://localhost:9200/_template/filebeat?pretty
+#     method: POST
+#     user: elastic
+#     password: "{{xpack_elastic_user_password}}"
+#     body: "{{ lookup('file', 'filebeat-index-template.json') }}"
+#     body_format: json
+#     return_content: yes
+#   register: filebeatJSON_output
+#   until: '"json" in filebeatJSON_output and filebeatJSON_output.json.acknowledged == true'
+#   retries: 30
+#   delay: 10
+#   become: true
+#   when: install_elasticsearch_xpack|bool
