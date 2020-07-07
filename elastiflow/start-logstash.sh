@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo docker run \
+docker run \
   --detach \
   --name logstash \
   --network=host \
@@ -17,9 +17,9 @@ sudo docker run \
   --env ELASTIFLOW_SFLOW_IPV4_PORT="6343" \
   --env ELASTIFLOW_IPFIX_TCP_IPV4_PORT="4739" \
   --env ELASTIFLOW_IPFIX_UDP_IPV4_PORT="4739" \
+  --env ELASTIFLOW_ES_HOST="https://elasticsearch-dmz.pensando.dev:9200" \
+  robcowart/elastiflow-logstash-oss:4.0.0-beta
   # --env ELASTIFLOW_ES_SSL_ENABLE=true \
   # --env ELASTIFLOW_ES_SSL_VERIFY=false \
   # --env ELASTIFLOW_ES_USER="elastic" \
   # --env ELASTIFLOW_ES_PASSWD="pensando" \
-  --env ELASTIFLOW_ES_HOST="https://elasticsearch-dmz.pensando.dev:9200" \
-  robcowart/elastiflow-logstash-oss:4.0.0-beta
