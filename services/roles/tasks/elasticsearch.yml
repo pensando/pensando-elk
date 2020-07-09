@@ -5,6 +5,38 @@
     image: docker.elastic.co/elasticsearch/elasticsearch:${TAG:-7.8.0}
     ports:
         - 9200:9200
+    environment:
+        # JVM Heap size
+        #   - this should be at least 2GB for simple testing, receiving only a few flows per second.
+        #   - for production environments upto 31GB is recommended.
+        ES_JAVA_OPTS: '-Xms8g -Xmx8g'
+        ELASTIC_PASSWORD: pensando
+        cluster.name: pensando.elastic
+        node.name: elasticsearch-dmz.pensando.dev
+        bootstrap.memory_lock: 'true'
+        network.host: 0.0.0.0
+        http.port: 9200
+        discovery.type: 'single-node'
+        indices.query.bool.max_clause_count: 8192
+        search.max_buckets: 10000000
+        # change the following to true if you don't want to be able to wildcard delete
+        action.destructive_requires_name: 'false'
+        http.cors.enabled: 'true'
+        http.cors.allow-credentials: 'true'
+        http.cors.allow-methods: 'OPTIONS,HEAD,GET,POST,PUT,DELETE'
+        http.cors.allow-headers: 'Requested-With,Content-Type,Content-Length,Authorization,X-Requested-With'
+        #http.cors.allow-origin: *
+        # xpack.security.transport.ssl.enabled: 'true'
+        # xpack.security.transport.ssl.verification_mode: 'none'
+        # xpack.security.transport.ssl.key: '/usr/share/elasticsearch/config/certs/elasticsearch-dmz.pensando.dev.key.pem'
+        # xpack.security.transport.ssl.certificate: '/usr/share/elasticsearch/config/certs/elasticsearch-dmz.pensando.dev.cert.pem'
+        # xpack.security.transport.ssl.certificate_authorities: '/usr/share/elasticsearch/config/certs/ca-chain.cert.pem'
+        # xpack.security.http.ssl.enabled: 'true'
+        # xpack.security.http.ssl.verification_mode: 'none'
+        # xpack.security.http.ssl.key: '/usr/share/elasticsearch/config/certs/elasticsearch-dmz.pensando.dev.key.pem'
+        # xpack.security.http.ssl.certificate: '/usr/share/elasticsearch/config/certs/elasticsearch-dmz.pensando.dev.cert.pem'
+        # xpack.security.http.ssl.certificate_authorities: '/usr/share/elasticsearch/config/certs/ca-chain.cert.pem'
+        # xpack.security.enabled: 'true'
     networks:
         - name: pensando-elk
     volumes:
