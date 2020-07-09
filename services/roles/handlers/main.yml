@@ -1,0 +1,10 @@
+---
+    - name: change ownership
+      file:
+        path: "{{ paths.filebeat }}/filebeat.yml"
+        owner: root
+        group: root
+        mode: 0644
+      become: yes
+    - name: restart filebeat
+      command: docker restart filebeat
