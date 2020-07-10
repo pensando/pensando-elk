@@ -1,0 +1,7 @@
+---
+    base_path: {{ PWD }}
+    paths:
+      filebeat: "{{ base_path }}/filebeat"
+      elasticsearch: "{{ base_path }}/elasticsearch"
+      kibana: "{{ base_path }}/kibana"
+      elastiflow-logstash: "{{ base_path }}/elastiflow"

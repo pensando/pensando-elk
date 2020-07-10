@@ -2,17 +2,17 @@
 - name: Start elasticsearch
   docker_container:
     name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:${TAG:-7.8.0}
+    image: docker.elastic.co/elasticsearch/elasticsearch:{{ TAG | default(7.8.0) }}
     ports:
-        - 9200:9200
-    environment:
+        - "9200:9200"
+    env:
         # JVM Heap size
         #   - this should be at least 2GB for simple testing, receiving only a few flows per second.
         #   - for production environments upto 31GB is recommended.
         ES_JAVA_OPTS: '-Xms8g -Xmx8g'
         ELASTIC_PASSWORD: pensando
         cluster.name: pensando.elastic
-        node.name: elasticsearch-dmz.pensando.dev
+        node.name: elasticsearch.pensando.dev
         bootstrap.memory_lock: 'true'
         network.host: 0.0.0.0
         http.port: 9200
