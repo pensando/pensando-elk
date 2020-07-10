@@ -1,6 +1,6 @@
 ---
 - include: tasks/setup.yml
-- include: tasks/filebeat.yml
 - include: tasks/elasticsearch.yml
+- include: tasks/filebeat.yml
 - include: tasks/kibana.yml
 - include: tasks/elastiflow-logstash.yml

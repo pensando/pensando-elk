@@ -1,0 +1,9 @@
+---
+base_path: "{{ playbook_dir }}"
+paths:
+  FILEBEAT: "{{ base_path }}/filebeat"
+  ELASTICSEARCH: "{{ base_path }}/elasticsearch"
+  KIBANA: "{{ base_path }}/kibana"
+  ELASTIFLOW-LOGSTASH: "{{ base_path }}/elastiflow"
+# ELK_TAG: "{{ lookup('env','TAG') }}"
+# ELASTICSEARCH_HOST: "{{ lookup('env','ELASTICSEARCH_HOST') }}"

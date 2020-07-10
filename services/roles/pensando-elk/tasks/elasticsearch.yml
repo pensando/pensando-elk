@@ -1,10 +1,9 @@
 ---
 - name: Start elasticsearch
   docker_container:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}"
     name: elasticsearch
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:{{ ELK_TAG | default(7.8.0) }}'
-    ports:
-        - '9200:9200'
+    network_mode: host
     env:
         # JVM Heap size
         #   - this should be at least 2GB for simple testing, receiving only a few flows per second.
@@ -37,7 +36,10 @@
         # xpack.security.http.ssl.certificate: '/usr/share/elasticsearch/config/certs/elasticsearch-dmz.pensando.dev.cert.pem'
         # xpack.security.http.ssl.certificate_authorities: '/usr/share/elasticsearch/config/certs/ca-chain.cert.pem'
         # xpack.security.enabled: 'true'
-    networks:
-        - name: pensando-elk
     volumes:
         - '{{ paths.ELASTICSEARCH }}:/usr/share/elasticsearch/data'
+
+- name: Checking that elasticsearch is up and running
+  wait_for:
+    port: 9200
+    delay: 10
