@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Instance specific
+services/elasticsearch/*
+services/filebeat/*
