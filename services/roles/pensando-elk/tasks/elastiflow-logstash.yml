@@ -1,0 +1,17 @@
+---
+- name: Start elasticsearch
+  docker_container:
+    image: robcowart/elastiflow-logstash-oss:4.0.0-beta
+    container_name: elastiflow-logstash-oss
+    env:
+        # JVM Heap size - this MUST be at least 3GB (4GB preferred)
+        LS_JAVA_OPTS: '-Xms4g -Xmx4g'
+        # ElastiFlow global configuration
+        ELASTIFLOW_DEFAULT_APPID_SRCTYPE: "__UNKNOWN"
+        ELASTIFLOW_RESOLVE_IP2HOST: "false"
+        ELASTIFLOW_NAMESERVER: "{{ DNS_IP | default(8.8.8.8) }}"
+        ELASTIFLOW_NETFLOW_IPV4_PORT: 2055
+        ELASTIFLOW_SFLOW_IPV4_PORT: 6343
+        ELASTIFLOW_IPFIX_TCP_IPV4_PORT: 4739
+        ELASTIFLOW_IPFIX_UDP_IPV4_PORT: 4739
+        ELASTIFLOW_ES_HOST: "http://{{ ELASTICSEARCH_HOST | default(127.0.0.1) }}:9200"

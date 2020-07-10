@@ -1,0 +1,17 @@
+---
+- name: Start kibana
+  docker_container:
+    name: kibana
+    image: docker.elastic.co/kibana/kibana:{{ ELK_TAG | default(7.8.0) }}
+    ports:
+        - "5601:5601"
+    env:
+        SERVER_HOST: 0.0.0.0
+        SERVER_PORT: 5601
+        SERVER_MAXPAYLOADBYTES: 4194304
+        ELASTICSEARCH_HOSTS: "http://{{ ELASTICSEARCH_HOST | default(127.0.0.1) }}:9200"
+        KIBANA_DEFAULTAPPID: "dashboard/653cf1e0-2fd2-11e7-99ed-49759aed30f5"
+        LOGGING_DEST: stdout
+        LOGGING_QUIET: 'false'
+    networks:
+        - name: pensando-elk

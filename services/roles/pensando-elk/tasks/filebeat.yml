@@ -1,0 +1,10 @@
+---
+- name: Start filebeat
+  docker_container:
+    name: filebeat
+    image: 'docker.elastic.co/beats/filebeat:{{ ELK_TAG | default(7.8.0) }}'
+    user: root
+    volumes:
+      - '{{ paths.FILEBEAT }}/filebeat.yml:/usr/share/filebeat/filebeat.yml'
+    networks:
+      - name: pensando-elk

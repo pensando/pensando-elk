@@ -1,0 +1,27 @@
+---
+- name: Adjust max map count
+  sysctl:
+    name: vm.max_map_count
+    value: 262144
+    state: present
+  become: true
+
+- name: Setup directories
+  file:
+    path: "{{ item }}"
+    recurse: yes
+  with_items:
+    - "{{ paths.FILEBEAT }}"
+    - "{{ paths.ELASTICSEARCH }}"
+
+- name: Sync filebeat config
+  synchronize:
+    src: files/filebeat.yml
+    dest: "{{ paths.FILEBEAT }}"
+  notify:
+  - change ownership
+  - restart filebeat
+
+- name: Create network
+  docker_network:
+    name: pensando-elk
