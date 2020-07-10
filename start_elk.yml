@@ -1,0 +1,10 @@
+---
+#
+# Playbook to install the ELK stack for Pensando systems
+
+- hosts: localhost
+#   remote_user: "{{ ansible_system_user }}"
+  vars_files:
+    - pensando-elk/vars/vars.yml
+  roles:
+    - { role: pensando-elk }

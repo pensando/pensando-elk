@@ -1,0 +1,14 @@
+---
+- name: Start Pensando filebeat container
+  docker_container:
+    name: pensando-filebeat
+    image: docker.elastic.co/beats/filebeat:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}
+    user: root
+    volumes:
+      - '{{ paths.FILEBEAT }}/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro'
+      - '{{ paths.FILEBEAT }}/fields.yml:/usr/share/filebeat/fields.yml:ro'
+      - '{{ paths.FILEBEAT }}/module/pensando:/usr/share/filebeat/module/pensando:ro'
+      - /var/run/docker.sock:/var/run/docker.sock
+    env:
+      strict.perms: 'false'
+    network_mode: host
