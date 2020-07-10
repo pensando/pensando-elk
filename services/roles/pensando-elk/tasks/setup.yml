@@ -20,4 +20,17 @@
     dest: "{{ paths.FILEBEAT }}"
   notify:
   - change ownership
+
+- name: Sync filebeat ECS fields
+  synchronize:
+    src: files/fields.yml
+    dest: "{{ paths.FILEBEAT }}"
+  notify:
+  - change ownership
+
+- name: Sync Pensando filebeat module
+  synchronize:
+    src: files/module
+    dest: "{{ paths.FILEBEAT }}"
+  notify:
   - restart filebeat

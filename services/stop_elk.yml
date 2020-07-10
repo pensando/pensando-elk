@@ -1,0 +1,29 @@
+---
+#
+# Playbook to shutdown the ELK stack for Pensando systems
+
+- hosts: localhost
+
+  vars_files:
+    - roles/pensando-elk/vars/vars.yml
+  tasks:
+    - name: Stop the pensando-filebeat container
+      docker_container:
+        name: filebeat
+        state: stopped
+      ignore_errors: yes
+
+    - name: Stop the elastiflow-logstash container
+      docker_container:
+        name: elastiflow-logstash-oss
+        state: stopped
+
+    - name: Stop the kibana container
+      docker_container:
+        name: kibana
+        state: stopped
+
+    - name: Stop the elasticsearch container
+      docker_container:
+        name: elasticsearch
+        state: stopped

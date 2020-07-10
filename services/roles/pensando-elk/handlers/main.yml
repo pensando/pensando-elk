@@ -1,7 +1,7 @@
 ---
     - name: change ownership
       file:
-        path: "{{ paths.filebeat }}/filebeat.yml"
+        path: "{{ paths.FILEBEAT }}/filebeat.yml"
         owner: root
         group: root
         mode: 0644

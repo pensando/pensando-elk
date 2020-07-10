@@ -1,10 +1,14 @@
-filebeat.inputs:
-    - type: log
-      paths:
-      - '/var/lib/docker/containers/*/*.log'
-      json.message_key: log
-      json.keys_under_root: true
-      processors:
-      - add_docker_metadata: ~
+filebeat.modules:
+    - module: pensando
+      dfw:
+        enabled: true
+        syslog_host: 0.0.0.0
+        syslog_port: 9001
     output.elasticsearch:
-      hosts: ["localhost:9200"]
+      hosts: ["https://{{ lookup('env', 'ELASTICSEARCH_HOST') | default('127.0.0.1', true) }}:9200"]
+    setup.template.enabled: true
+    setup.template.name: "pensando"
+    setup.template.pattern: "pensando-*"
+    setup.template.fields: "/usr/share/filebeat/fields.yml"
+    setup.template.overwrite: true
+    setup.ilm.enabled: true

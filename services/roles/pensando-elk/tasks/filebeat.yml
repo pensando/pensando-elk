@@ -1,9 +1,0 @@
----
-- name: Start filebeat
-  docker_container:
-    name: filebeat
-    image: docker.elastic.co/beats/filebeat:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}
-    user: root
-    volumes:
-      - '{{ paths.FILEBEAT }}/filebeat.yml:/usr/share/filebeat/filebeat.yml'
-    network_mode: host
