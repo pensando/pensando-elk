@@ -6,7 +6,7 @@
     state: present
   become: true
 
-- name: Remove old Filebeat directory
+- name: Remove old filebeat directory
   file:
     path: "{{ paths.FILEBEAT }}"
     state: absent
