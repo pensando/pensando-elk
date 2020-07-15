@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Instance specific
-./elasticsearch*
-./filebeat*
+elasticsearch/
+filebeat/
