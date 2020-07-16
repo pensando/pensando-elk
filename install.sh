@@ -34,6 +34,7 @@ initPlaybook () {
         then
         PLAYBOOK=install_docker_ubuntu.yml
         PYTHON3_APT_DIR=/usr/lib/python3/dist-packages
+        sudo apt-get install python3-venv
     elif [[ $OS =~ "CentOS" ]]
         then
         PLAYBOOK=install_docker_centos.yml
