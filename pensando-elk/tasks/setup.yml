@@ -1,0 +1,57 @@
+---
+- name: Adjust max map count
+  sysctl:
+    name: vm.max_map_count
+    value: 262144
+    state: present
+  become: true
+
+- name: Remove old filebeat directory
+  file:
+    path: "{{ paths.FILEBEAT }}"
+    state: absent
+
+- name: Setup directories
+  file:
+    path: "{{ item }}"
+    recurse: yes
+  with_items:
+    - "{{ paths.FILEBEAT }}"
+    - "{{ paths.ELASTICSEARCH }}"
+
+- name: Sync filebeat config
+  synchronize:
+    src: files/filebeat.yml
+    dest: "{{ paths.FILEBEAT }}"
+  notify:
+    - restart filebeat
+
+- name: Sync filebeat ECS fields
+  synchronize:
+    src: files/fields.yml
+    dest: "{{ paths.FILEBEAT }}"
+  notify:
+    - restart filebeat
+
+- name: Sync Pensando filebeat module
+  synchronize:
+    src: files/module
+    dest: "{{ paths.FILEBEAT }}"
+  notify:
+  - restart filebeat
+
+- name: Change ownership of filebeat.yml
+  file:
+    path: "{{ paths.FILEBEAT }}/filebeat.yml"
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+
+- name: Change ownership of manifest.yml
+  file:
+    path: "{{ paths.FILEBEAT }}/module/pensando/dfw/manifest.yml"
+    owner: root
+    group: root
+    mode: 0644
+  become: yes

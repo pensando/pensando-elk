@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Instance specific
+pensando-elk/es_data
+pensando-elk/filebeat
+*.retry

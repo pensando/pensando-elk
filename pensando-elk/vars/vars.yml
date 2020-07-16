@@ -1,0 +1,7 @@
+---
+base_path: "{{ playbook_dir }}/pensando-elk"
+paths:
+  FILEBEAT: "{{ base_path }}/filebeat"
+  ELASTICSEARCH: "{{ base_path }}/es_data"
+  KIBANA: "{{ base_path }}/kibana"
+  ELASTIFLOW-LOGSTASH: "{{ base_path }}/elastiflow"

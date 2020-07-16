@@ -1,0 +1,9 @@
+---
+#
+# Playbook to install the ELK stack for Pensando systems
+
+- hosts: localhost
+  vars_files:
+    - pensando-elk/vars/vars.yml
+  roles:
+    - { role: pensando-elk }
