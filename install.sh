@@ -64,19 +64,19 @@ if [ ! -d "$userHome/es_backup" ]; then
   printf "\n[INSTALL]: $(tput setaf 2)Creating directory for ES backups$(tput sgr 0)\n"
   install -d -m 0777 -o $userName -g $(id -gn $userName) $userHome/es_backup
 else
-  printf "\n[INSTALL]: $(tput setaf 1)Backup directory already exists, skipping$(tput sgr 0)\n\n"
+  printf "\n[INSTALL]: $(tput setaf 1)Backup directory already exists, skipping$(tput sgr 0)\n"
 fi
 
 if [ ! -d "./.venv" ]; then
-  printf "\n[INSTALL]: $(tput setaf 1)Creating virtualenv$(tput sgr 0)\n\n"
+  printf "\n[INSTALL]: $(tput setaf 6)Creating virtualenv$(tput sgr 0)\n"
   python3.6 -m venv --system-site-packages .venv
 fi
 
-printf "\n[INSTALL]: $(tput setaf 2)Activating virtualenv and installing dependencies$(tput sgr 0)\n\n"
+printf "\n[INSTALL]: $(tput setaf 6)Activating virtualenv and installing dependencies$(tput sgr 0)\n\n"
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r install/requirements.txt
 
-printf "\n[INSTALL]: $(tput setaf 2) Running $PLAYBOOK installer.......$(tput sgr 0)\n\n"
+printf "\n[INSTALL]: $(tput setaf 6) Running $PLAYBOOK installer.......$(tput sgr 0)\n\n"
 
 ansible-playbook install/$PLAYBOOK
