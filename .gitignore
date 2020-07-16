@@ -131,3 +131,4 @@ dmypy.json
 # Instance specific
 elasticsearch/
 filebeat/
+*.retry
