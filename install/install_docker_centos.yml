@@ -1,8 +1,7 @@
 ---
-
 - name: Install Docker and Docker Compose on CentOS
-hosts: all
-become: true
+  hosts: all
+  become: true
 
 tasks:
 - name: Upgrade all packages

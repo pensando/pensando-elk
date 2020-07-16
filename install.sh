@@ -19,12 +19,14 @@ else
   printf "\n>>> $(tput setaf 1)Backup directory already exists, skipping$(tput sgr 0)\n"
 fi
 
-if [ ! -d "./.env" ]; then
- python3.6 -m venv .env
- source .env/bin/activate
+if [ ! -d "./.venv" ]; then
+ python3.6 -m venv .venv
+fi
+
+echo "Activating virtualenv and installing dependcies"
+source .env/bin/activate
  pip install --upgrade pip
  pip install ansible
-fi
 
 # Figure out the underlying OS - we support CentOS, Redhat and Ubuntu right now
 if [ -f /etc/os-release ]; then
@@ -52,20 +54,22 @@ echo "The OS is determined to be $OS"
 
 if [[ $OS =~ "Ubuntu" ]]
 then
-   echo "Conditional found Ubuntu"
    PLAYBOOK=install_docker_ubuntu.yml
 elif [[ $OS =~ "CentOS" ]]
 then
-   echo "Conditional found CentOS"
-   PLAYBOOK=install_centos_ubuntu.yml
+   PLAYBOOK=install_docker_centos.yml
 elif [[ $OS =~ "RedHat" ]]
 then
-   echo "Conditional found RedHat"
-   PLAYBOOK=install_centos_ubuntu.yml
+   PLAYBOOK=install_docker_centos.yml
 else
    echo "The OS type of $OS is unsupported, exiting"
    exit 1
 fi
+
+echo "Running $PLAYBOOK installer......."
+
+ansible-playbook install/$PLAYBOOK
+
 exit
 
 
