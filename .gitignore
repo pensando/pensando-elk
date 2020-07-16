@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Instance specific
-elasticsearch/
-filebeat/
+pensando-elk/es_data
+pensando-elk/filebeat
 *.retry
