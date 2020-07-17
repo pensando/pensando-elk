@@ -34,7 +34,7 @@ initPlaybook () {
         then
         PLAYBOOK=install_docker_ubuntu.yml
         PYTHON3_APT_DIR=/usr/lib/python3/dist-packages
-        sudo apt-get install python3-venv
+        sudo apt-get -y install python3-venv
     elif [[ $OS =~ "CentOS" ]]
         then
         PLAYBOOK=install_docker_centos.yml
@@ -47,6 +47,12 @@ initPlaybook () {
     fi
 }
 
+adjustUser () {
+    # Function to change add user to sudo so we don't have to use a password all the time and modify groups
+    echo "$userName ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$userName-nopasswd
+    sudo groupadd docker
+    sudo usermod -a -G $userName docker
+}
 ################################################################################
 #                          SYSTEM SETUP
 ################################################################################
@@ -54,10 +60,10 @@ initPlaybook () {
 findOS
 initPlaybook
 
-
 # Figure out who we are so we write the correct paths
 userName=$(echo $USER)
 userHome=$(eval echo "~$userName" )
+adjustUser
 printf "\n[INSTALL]: $(tput setaf 6)Setting up for user $userName in $userHome directory $(tput sgr 0)\n"
 
 # Create backup directory and make world writeable so elasticsearch can use it.
