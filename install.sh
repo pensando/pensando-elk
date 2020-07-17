@@ -51,8 +51,8 @@ adjustUser () {
     # Function to change add user to sudo so we don't have to use a password all the time and modify groups
     printf "\n[INSTALL]: $(tput setaf 6)Modifying user to allow for no password sudo$(tput sgr 0)\n"
     echo "$userName ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$userName-nopasswd
-    sudo groupadd docker
-    sudo usermod -a -G docker $userName
+    # sudo groupadd docddker
+    # sudo usermod -a -G docker $userName
 }
 ################################################################################
 #                          SYSTEM SETUP
