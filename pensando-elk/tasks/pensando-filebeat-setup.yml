@@ -1,13 +1,7 @@
 ---
-- name: Stop the pensando-filebeat-setup container if it's running
+- name: Setup Pensando filebeat configuration
   docker_container:
     name: pensando-filebeat-setup
-    state: stopped
-  ignore_errors: yes
-
-- name: Start Pensando filebeat container
-  docker_container:
-    name: pensando-filebeat
     image: docker.elastic.co/beats/filebeat:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}
     user: root
     volumes:
@@ -17,4 +11,11 @@
       - /var/run/docker.sock:/var/run/docker.sock
     env:
       strict.perms: 'false'
+      setup.kibana.host: https://{{ lookup('env', 'KIBANA_HOST') | default('127.0.0.1', true) }}:5601
+      output.elasticsearch.hosts: http://{{ lookup('env', 'ELASTICSEARCH_HOST') | default('127.0.0.1', true) }}:9200
     network_mode: host
+
+- name: Pausing playbook so filebeat config can be transferred
+  wait_for:
+    timeout: 15
+  delegate_to: localhost
