@@ -5,7 +5,7 @@ filebeat.modules:
     syslog_host: 0.0.0.0
     syslog_port: 9001
 output.elasticsearch:
-  hosts: ["https://elasticsearch.pensando.dev:9200"]
+  hosts: ["https://localhost:9200"]
 setup.template.enabled: true
 setup.template.name: "pensando"
 setup.template.pattern: "pensando-*"
