@@ -1,0 +1,10 @@
+---
+- name: Start Suricata collector
+    docker_container:
+    image: jasonish/suricata:latest
+    command: -i {{ ansible_default_ipv4.interface }}
+    name: suricata
+    network_mode: host
+    volumes:
+        - '{{ paths.LOGGING }}/suricata_logs:/var/log/suricata'
+        - '{{ paths.ETC }}/suricata:/etc/suricata'
