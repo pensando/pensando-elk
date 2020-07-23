@@ -3,6 +3,8 @@
   docker_container:
     image: robcowart/elastiflow-logstash-oss:4.0.0-beta
     name: elastiflow-logstash-oss
+    volumes:
+      - '{{ paths.ETC }}/elastiflow/ipfix.yml:/etc/logstash/elastiflow/definitions/ipfix.yml:ro'
     network_mode: host
     env:
       # JVM Heap size - this MUST be at least 3GB (4GB preferred)
