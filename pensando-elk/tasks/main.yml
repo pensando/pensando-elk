@@ -3,4 +3,5 @@
 - include: tasks/elasticsearch.yml
 - include: tasks/kibana.yml
 - include: tasks/elastiflow-logstash.yml
+- include: tasks/pensando-filebeat-setup.yml
 - include: tasks/pensando-filebeat.yml
