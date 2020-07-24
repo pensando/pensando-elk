@@ -4930,7 +4930,7 @@
       example: project-x
       description: >
         Name of the project in Google Cloud.
-
+    
     - name: cloud.image.id
       example: ami-abcd1234
       description: >
@@ -4972,7 +4972,7 @@
       path: cloud.region
       migration: true
 
-
+    
 - key: docker
   title: Docker
   description: >
@@ -5478,7 +5478,7 @@
               type: keyword
               description: >
                 SSL protocol version.
-
+        
             - name: ssl.cipher
               type: keyword
               description: >
@@ -5676,7 +5676,7 @@
               type: long
               definition: >
                 Local port number.
-
+        
             - name: acct
               type: alias
               path: user.name
@@ -5724,7 +5724,7 @@
                   type: alias
                   path: source.geo.region_iso_code
                   migration: true
-
+        
             # Fields below were not defined in 6.x but were still being populated.
             - name: arch
               type: alias
@@ -5962,7 +5962,7 @@
                     - name: sys_sec
                       type: float
                       description: >
-                        CPU time spent inside the kernel.
+                        CPU time spent inside the kernel. 
                     - name: real_sec
                       type: float
                       description: >
@@ -6274,7 +6274,7 @@
           description: Please add description
           type: group
           fields:
-
+        
           - name: response
             description: Fields related to the HTTP response
             type: group
@@ -6282,17 +6282,17 @@
             - name: captured_cookie
               description: >
                 Optional "name=value" entry indicating that the client had this cookie in the response.
-
+        
             - name: captured_headers
               description: >
                 List of headers captured in the response due to the presence of the "capture response header" statement in the frontend.
               type: keyword
-
+        
             - name: status_code
               type: alias
               path: http.response.status_code
               migration: true
-
+        
           - name: request
             description: Fields related to the HTTP request
             type: group
@@ -6300,24 +6300,24 @@
             - name: captured_cookie
               description: >
                 Optional "name=value" entry indicating that the server has returned a cookie with its request.
-
+        
             - name: captured_headers
               description: >
                 List of headers captured in the request due to the presence of the "capture request header" statement in the frontend.
               type: keyword
-
+        
             - name: raw_request_line
               description: Complete HTTP request line, including the method, request and HTTP version string.
               type: keyword
-
+        
             - name: time_wait_without_data_ms
               description: Total time in milliseconds spent waiting for the server to send a full HTTP response, not counting data.
               type: long
-
+        
             - name: time_wait_ms
               description: Total time in milliseconds spent waiting for a full HTTP request from the client (not counting body) after the first byte was received.
               type: long
-
+        
         - name: tcp
           description: TCP log format
           type: group
@@ -6343,7 +6343,7 @@
               type: keyword
               description: >
                 Specifies what component of Icinga logged the message.
-
+        
             - name: severity
               type: alias
               path: log.level
@@ -6361,7 +6361,7 @@
               type: keyword
               description: >
                 Specifies what component of Icinga logged the message.
-
+        
             - name: severity
               type: alias
               path: log.level
@@ -6379,7 +6379,7 @@
               type: keyword
               description: >
                 Specifies what component of Icinga logged the message.
-
+        
             - name: severity
               type: alias
               path: log.level
@@ -6424,7 +6424,7 @@
               type: keyword
               description: >
                 The content of the cookie sent or received, if any.
-
+        
             - name: body_received.bytes
               type: alias
               path: http.request.body.bytes
@@ -6540,7 +6540,7 @@
               type: keyword
               description: >
                 The IIS application pool name.
-
+        
             - name: remote_ip
               type: alias
               path: source.address
@@ -6622,7 +6622,7 @@
               type: alias
               path: message
               migration: true
-
+        
             - name: component
               type: keyword
               description: >
@@ -6669,7 +6669,7 @@
             - name: meta
               type: object
               object_type: keyword
-
+        
             - name: kibana.log.meta.req.headers.referer
               type: alias
               path: http.request.referrer
@@ -6733,7 +6733,7 @@
               example: main
               description: >
                 The ID of the pipeline.
-
+        
             - name: message
               type: alias
               path: message
@@ -6821,7 +6821,7 @@
                 Context of message
             example: initandlisten
             type: keyword
-
+        
           - name: severity
             type: alias
             path: log.level
@@ -6917,7 +6917,7 @@
               type: keyword
               description: >
                 Code of the reason if the query was killed.
-
+        
             - name: query_cache_hit
               type: boolean
               description: >
@@ -6974,7 +6974,7 @@
             - name: sort_range_count
               type: long
               description: >
-                Number of sorts that were done using ranges.
+                Number of sorts that were done using ranges. 
             - name: sort_rows
               type: long
               description: >
@@ -7016,12 +7016,12 @@
             - name: read_rnd
               type: long
               description: >
-                The number of requests to read a row based on a fixed position.
+                The number of requests to read a row based on a fixed position. 
             - name: read_rnd_next
               type: long
               description: >
                 The number of requests to read the next row in the data file.
-
+        
             # https://www.percona.com/doc/percona-server/5.7/diagnostics/slow_extended.html
             - name: innodb
               type: group
@@ -7058,7 +7058,7 @@
                   type: long
                   description: >
                     Approximated count of pages accessed to execute the query.
-
+        
             - name: user
               type: alias
               path: user.name
@@ -7071,7 +7071,7 @@
               type: alias
               path: source.ip
               migration: true
-
+        
 - key: nats
   title: "nats"
   description: >
@@ -7158,7 +7158,7 @@
                 An array of remote IP addresses. It is a list because it is common to include, besides the client
                 IP address, IP addresses from headers like `X-Forwarded-For`.
                 Real source IP is restored to `source.ip`.
-
+        
             - name: body_sent.bytes
               type: alias
               path: http.response.body.bytes
@@ -7191,7 +7191,7 @@
               type: alias
               path: user_agent.original
               migration: true
-
+        
             - name: user_agent
               type: group
               fields:
@@ -7215,7 +7215,7 @@
                   type: alias
                   path: user_agent.original
                   migration: true
-
+        
             - name: geoip
               type: group
               fields:
@@ -7252,7 +7252,7 @@
               type: long
               description: >
                 Connection identifier.
-
+        
             - name: level
               type: alias
               path: log.level
@@ -7280,7 +7280,7 @@
                 An array of remote IP addresses. It is a list because it is common to include, besides the client
                 IP address, IP addresses from headers like `X-Forwarded-For`.
                 Real source IP is restored to `source.ip`.
-
+        
             # ingress-controller specific fields
             - name: http.request.length
               type: long
@@ -7326,7 +7326,7 @@
               type: long
               description: >
                 The port of the upstream server.
-
+        
             - name: body_sent.bytes
               type: alias
               path: http.response.body.bytes
@@ -7359,7 +7359,7 @@
               type: alias
               path: user_agent.original
               migration: true
-
+        
             - name: user_agent
               type: group
               fields:
@@ -7383,7 +7383,7 @@
                   type: alias
                   path: user_agent.original
                   migration: true
-
+        
             - name: geoip
               type: group
               fields:
@@ -7448,7 +7448,7 @@
               description: >
                 String representation of the collection time, as formatted by osquery.
 - key: pensando
-  title: Pensando
+  title: Pensando 
   description: >
     pensando Module
   fields:
@@ -7461,7 +7461,7 @@
           description: Please add description
           example: Please add example
           type: text
-        - name: dfw
+        - name: dfw 
           type: group
           release: beta
           default_field: false
@@ -7471,51 +7471,51 @@
             - name: action
               type: keyword
               description: >
-                Action on the flow.
+                Action on the flow. 
             - name: app_id
-              type: integer
+              type: integer 
               description: >
-                Application ID
-            - name: destination_address
+                Application ID 
+            - name: destination_address 
+              type: keyword 
+              description: >
+                Address of destination. 
+            - name: destination_port 
+              type: integer 
+              description: >
+                Port of destination. 
+            - name: direction 
               type: keyword
               description: >
-                Address of destination.
-            - name: destination_port
-              type: integer
-              description: >
-                Port of destination.
-            - name: direction
+                Direction of the flow 
+            - name: protocol 
               type: keyword
               description: >
-                Direction of the flow
-            - name: protocol
-              type: keyword
+                Protocol of the flow 
+            - name: rule_id 
+              type: keyword 
               description: >
-                Protocol of the flow
-            - name: rule_id
-              type: keyword
+                Rule ID that was matched. 
+            - name: session_id 
+              type: integer 
               description: >
-                Rule ID that was matched.
-            - name: session_id
-              type: integer
-              description: >
-                Session ID of the flow
+                Session ID of the flow 
             - name: session_state
-              type: keyword
+              type: keyword 
               description: >
-                Session state of the flow.
-            - name: source_address
-              type: keyword
+                Session state of the flow. 
+            - name: source_address 
+              type: keyword 
               description: >
-                Source address of the flow.
-            - name: source_port
-              type: integer
+                Source address of the flow. 
+            - name: source_port 
+              type: integer 
               description: >
-                Source port of the flow.
-            - name: timestamp
-              type: date
+                Source port of the flow. 
+            - name: timestamp 
+              type: date 
               description: >
-                Timestamp of the log.
+                Timestamp of the log. 
 - key: postgresql
   title: "PostgreSQL"
   description: >
@@ -7557,11 +7557,11 @@
               description: >
                 Name given to a query when using extended query protocol. If it is "<unnamed>", or not present,
                 this field is ignored.
-
+        
             - name: error.code
               type: long
               description: Error code returned by Postgres (if any)
-
+        
             - name: timezone
               type: alias
               path: event.timezone
@@ -7601,7 +7601,7 @@
               description: >
                 The role of the Redis instance. Can be one of `master`, `slave`, `child` (for RDF/AOF writing child),
                 or `sentinel`.
-
+        
             - name: pid
               type: alias
               path: process.pid
@@ -7744,7 +7744,7 @@
               type: alias
               path: user.name
               migration: true
-
+        
             - name: ssh
               type: group
               fields:
@@ -7758,12 +7758,12 @@
                 type: ip
                 description: >
                   The client IP from SSH connections that are open and immediately dropped.
-
+        
               - name: event
                 example: Accepted
                 description: >
                   The SSH event as found in the logs (Accepted, Invalid, Failed, etc.)
-
+        
               - name: ip
                 type: alias
                 path: source.ip
@@ -7772,7 +7772,7 @@
                 type: alias
                 path: source.port
                 migration: true
-
+        
               - name: geoip
                 type: group
                 fields:
@@ -7800,7 +7800,7 @@
                     type: alias
                     path: source.geo.region_iso_code
                     migration: true
-
+        
             - name: sudo
               type: group
               description: >
@@ -7823,7 +7823,7 @@
               - name: command
                 description: >
                   The command executed via sudo.
-
+        
             - name: useradd
               type: group
               description: >
@@ -7835,7 +7835,7 @@
               - name: shell
                 description:
                   The default shell for the new user.
-
+        
               - name: name
                 type: alias
                 path: user.name
@@ -7848,7 +7848,7 @@
                 type: alias
                 path: group.id
                 migration: true
-
+        
             - name: groupadd
               type: group
               description: >
@@ -7918,7 +7918,7 @@
               type: keyword
               description:
                 The url of the backend where request is forwarded
-
+        
             - name: body_sent.bytes
               type: alias
               path: http.response.body.bytes
@@ -7955,7 +7955,7 @@
               type: alias
               path: user_agent.original
               migration: true
-
+        
             - name: user_agent
               type: group
               fields:
@@ -7974,7 +7974,7 @@
                 - name: original
                   type: alias
                   path: user_agent.original
-
+        
             - name: geoip
               type: group
               fields:
@@ -7996,3 +7996,4 @@
                 - name: region_iso_code
                   type: alias
                   path: source.geo.region_iso_code
+        

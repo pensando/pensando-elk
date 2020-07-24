@@ -5,3 +5,5 @@ paths:
   ELASTICSEARCH: "{{ base_path }}/es_data"
   KIBANA: "{{ base_path }}/kibana"
   ELASTIFLOW: "{{ base_path }}/files/etc/elastiflow"
+  LOGGING: "{{ base_path }}/logs"
+  ETC: "{{ base_path }}/files/etc"
