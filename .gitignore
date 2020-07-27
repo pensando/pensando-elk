@@ -132,3 +132,8 @@ dmypy.json
 pensando-elk/es_data
 pensando-elk/filebeat
 *.retry
+
+# Sphinx doc supporting files and dirs
+_build
+_static
+_templates
