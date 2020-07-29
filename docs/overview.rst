@@ -11,9 +11,9 @@ installing the pensando-elk software, there is a curated view of the following, 
 
     + Elastiflow: Network flow data gathered from Pensando DSCs
 
-    + Suricata: Network threat detection engine
+    + Suricata: Network threat detection engine using ERSPAN II logs
 
-    + Zeek: Configurable packet stream reader converts to events and alerts
+    + Zeek: Configurable packet stream reader that converts ERSPAN III logs to events and alerts
 
 
 To use pensando-elk, you only need a CentOS 7 or Ubuntu 18.04 server/VM with the following minimums:
