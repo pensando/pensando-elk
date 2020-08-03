@@ -6,9 +6,9 @@
     args:
       warn: false
   - name: Install dnf-plugins-core to manage DNF repository
-    dnf:
-      name:  dnf-plugins-core
-      state: present
+    shell: "dnf install dnf-plugins-core"
+    args:
+      warn: false
 
   - name: Add docker repo
     shell:  'dnf config-manager \
