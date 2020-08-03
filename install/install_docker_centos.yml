@@ -1,6 +1,12 @@
 - hosts: localhost
   become: true
   tasks:
+  - name: Install dnf
+      yum:
+        name: dnf
+        state: present
+      vars:
+        ansible_python_interpreter: /usr/bin/python
   - name: Install python modules.
     shell: "dnf install python3 python-dnf"
     args:
