@@ -14,6 +14,8 @@
     shell:  'dnf config-manager \
       --add-repo \
       https://download.docker.com/linux/centos/docker-ce.repo'
+    args:
+      warn: false
 
   - name: Install Docker and Containerd
     shell: "dnf -y install docker-ce docker-ce-cli containerd.io"
