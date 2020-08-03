@@ -1,8 +1,6 @@
 ---
-- name: Install docker
-  gather_facts: No
-  hosts: default
-
+- hosts: localhost
+  become: true
   tasks:
     - name: Install yum utils
       yum:
