@@ -7,7 +7,7 @@
       warn: false
 
   - name: Remove existing unofficial Docker packages
-    shell: "dnf remove docker docker-common container-selinux docker-selinux"
+    shell: "dnf remove --installed docker docker-common container-selinux docker-selinux"
     args:
       warn: false
 
