@@ -1,60 +1,42 @@
----
 - hosts: localhost
   become: true
   tasks:
-    - name: Install yum utils
-      yum:
-        name: yum-utils
-        state: latest
+  - name: install python modules.
+    dnf:
+      name: python3
+      state: present
 
-    - name: Install device-mapper-persistent-data
-      yum:
-        name: device-mapper-persistent-data
-        state: latest
+  - name: Install python-dnf module
+    dnf:
+      name: python-dnf
+      state: present
 
-    - name: Install lvm2
-      yum:
-        name: lvm2
-        state: latest
+  - name: Remove existing unofficial Docker packages
+    dnf:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+      - docker
+      - docker-common
+      - container-selinux
+      - docker-selinux
 
-    - name: Add Docker repo
-      get_url:
-        url: https://download.docker.com/linux/centos/docker-ce.repo
-        dest: /etc/yum.repos.d/docer-ce.repo
-      become: yes
+  - name: Install dnf-plugins-core to manage DNF repository
+    dnf:
+      name:  dnf-plugins-core
+      state: present
 
-    - name: Enable Docker Edge repo
-      ini_file:
-        dest: /etc/yum.repos.d/docer-ce.repo
-        section: 'docker-ce-edge'
-        option: enabled
-        value: 0
-      become: yes
+  - name: Add docker repo
+    shell:  'dnf config-manager \
+      --add-repo \
+      https://download.docker.com/linux/centos/docker-ce.repo'
 
-    - name: Enable Docker Test repo
-      ini_file:
-        dest: /etc/yum.repos.d/docer-ce.repo
-        section: 'docker-ce-test'
-        option: enabled
-        value: 0
-      become: yes
+  - name: Update dnf package index
+    dnf:
+     name: docker-engine
+     state: latest
 
-    - name: Install Docker
-      package:
-        name: docker-ce
-        state: latest
-      become: yes
-
-    - name: Start Docker service
-      service:
-        name: docker
-        state: started
-        enabled: yes
-      become: yes
-
-    - name: Add user vagrant to docker group
-      user:
-        name: vagrant
-        groups: docker
-        append: yes
-      become: yes
+  - name: Start docker service
+    systemd:
+      state: started
+      name: docker
