@@ -6,7 +6,7 @@
     args:
       warn: false
   - name: Install dnf-plugins-core to manage DNF repository
-    shell: "dnf install dnf-plugins-core"
+    shell: "dnf -y install dnf-plugins-core"
     args:
       warn: false
 
