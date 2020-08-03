@@ -7,7 +7,7 @@
       warn: false
 
   - name: Remove existing unofficial Docker packages
-    shell: "python3-dnf remove docker docker-common container-selinux docker-selinux"
+    shell: "python-dnf remove docker docker-common container-selinux docker-selinux"
 
   - name: Install dnf-plugins-core to manage DNF repository
     dnf:
