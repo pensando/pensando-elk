@@ -2,15 +2,9 @@
   become: true
   tasks:
   - name: Install python modules.
-    shell: "dnf install python3 python3-dnf"
+    shell: "dnf install python3 python-dnf"
     args:
       warn: false
-
-  - name: Remove existing unofficial Docker packages
-    shell: "dnf remove --installed docker docker-common container-selinux docker-selinux"
-    args:
-      warn: false
-
   - name: Install dnf-plugins-core to manage DNF repository
     dnf:
       name:  dnf-plugins-core
