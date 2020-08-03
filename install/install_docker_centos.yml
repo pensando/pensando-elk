@@ -1,13 +1,15 @@
 - hosts: localhost
   become: true
   tasks:
-  - name: install python modules.
+  - name: Install python modules.
     shell: "dnf install python3 python-dnf"
     args:
       warn: false
 
   - name: Remove existing unofficial Docker packages
-    shell: "python-dnf remove docker docker-common container-selinux docker-selinux"
+    shell: "dnf remove docker docker-common container-selinux docker-selinux"
+    args:
+      warn: false
 
   - name: Install dnf-plugins-core to manage DNF repository
     dnf:
