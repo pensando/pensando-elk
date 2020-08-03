@@ -2,7 +2,7 @@
   become: true
   tasks:
   - name: Install python modules.
-    shell: "dnf install python3 python-dnf"
+    shell: "dnf install python3 python3-dnf"
     args:
       warn: false
 
