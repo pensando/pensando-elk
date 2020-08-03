@@ -2,14 +2,7 @@
   become: true
   tasks:
   - name: install python modules.
-    dnf:
-      name: python3
-      state: present
-
-  - name: Install python-dnf module
-    dnf:
-      name: python-dnf
-      state: present
+    shell: "dnf install --nobest python3 python-dnf"
 
   - name: Remove existing unofficial Docker packages
     dnf:
