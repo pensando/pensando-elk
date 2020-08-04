@@ -69,6 +69,7 @@ installDNF () {
 ################################################################################
 #
 findOS
+installDNF
 initPlaybook
 
 # Figure out who we are so we write the correct paths
