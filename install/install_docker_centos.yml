@@ -19,6 +19,8 @@
 
   - name: Install Docker and Containerd
     shell: "dnf -y install docker-ce docker-ce-cli containerd.io"
+    args:
+      warn: false
 
   - name: Start docker service
     systemd:
