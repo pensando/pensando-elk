@@ -60,7 +60,7 @@ installDNF () {
     if [[ $OS =~ "CentOS" ] && [ ! -x "$(command -v dnf)" ]]; then
         echo "installing dnf"
         yum install dnf
-        "dnf is installed"
+        echo "dnf is installed"
     fi
 }
 ################################################################################
