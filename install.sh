@@ -57,11 +57,12 @@ adjustUser () {
 
 installDNF () {
     # Function to check OS and install DNF for Centos7
-    if [[ $OS =~ "CentOS" ] && [ ! -x "$(command -v dnf)" ]]; then
+    if [[ $OS =~ "CentOS" ]] && [[ ! -x "$(command -v dnf)" ]]; then
         echo "installing dnf"
-        yum install dnf
-        echo "dnf is installed"
+        yum -y install dnf
+        echo "dnf installation complete"
     fi
+
 }
 ################################################################################
 #                          SYSTEM SETUP
