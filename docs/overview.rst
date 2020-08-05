@@ -22,4 +22,4 @@ To use pensando-elk, you only need a CentOS 8 or Ubuntu 18.04 server/VM with the
     + 16GB RAM - (up to 64GB supported)
     + 128GB HDD
 
-From there, you can :ref:`install`Install, :ref:`run`Run and then perform an initial :ref:`setup`Setup
+From there, you can :ref:`install-pensando-elk`Install, :ref:`running-pensando-elk`Run and then perform an initial :ref:`setup-pensando-elk`Setup
