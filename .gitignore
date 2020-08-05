@@ -132,3 +132,10 @@ dmypy.json
 pensando-elk/es_data
 pensando-elk/filebeat
 *.retry
+.vscode
+pensando-elk/logs/suricata_logs/*
+
+# Sphinx doc supporting files and dirs
+_build
+_static
+_templates
