@@ -9,11 +9,11 @@ installing the pensando-elk software, there is a curated view of the following, 
 
     + Pensando Distributed Firewall: logging from Pensando DSC firewalls
 
-    + `Elastiflow <https://github.com/robcowart/elastiflow/tree/4.x-dev>`: Network flow data gathered from Pensando DSCs
+    + `Elastiflow <https://github.com/robcowart/elastiflow/tree/4.x-dev>`_: Network flow data gathered from Pensando DSCs
 
-    + `Suricata <https://suricata-ids.org/>`: Network threat detection engine using ERSPAN II logs
+    + `Suricata <https://suricata-ids.org/>`_: Network threat detection engine using ERSPAN II logs
 
-    + `Zeek <https://zeek.org/>`: Configurable packet stream reader that converts ERSPAN III logs to events and alerts
+    + `Zeek <https://zeek.org/>`_: Configurable packet stream reader that converts ERSPAN III logs to events and alerts
 
 
 To use pensando-elk, you only need a CentOS 8 or Ubuntu 18.04 server/VM with the following minimums:
