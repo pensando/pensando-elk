@@ -1,5 +1,5 @@
 ---
-- name: Setup Pensando filebeat configuration
+- name: Start container for Pensando filebeat configuration
   docker_container:
     name: pensando-filebeat-setup
     image: docker.elastic.co/beats/filebeat:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}
@@ -11,11 +11,16 @@
       - /var/run/docker.sock:/var/run/docker.sock
     env:
       strict.perms: 'false'
-      setup.kibana.host: https://{{ lookup('env', 'KIBANA_HOST') | default('127.0.0.1', true) }}:5601
+      setup.kibana.host: http://{{ lookup('env', 'KIBANA_HOST') | default('127.0.0.1', true) }}:5601
       output.elasticsearch.hosts: http://{{ lookup('env', 'ELASTICSEARCH_HOST') | default('127.0.0.1', true) }}:9200
     network_mode: host
 
-- name: Pausing playbook so filebeat config can be transferred
-  wait_for:
-    timeout: 15
-  delegate_to: localhost
+- name: Add filebeat setup container to inventory
+  add_host:
+    name: pensando-filebeat-setup
+    ansible_connection: docker
+  changed_when: false
+
+- name: Running Pensando filebeat setup
+  delegate_to: pensando-filebeat-setup
+  shell: "./filebeat setup"

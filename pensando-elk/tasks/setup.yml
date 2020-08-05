@@ -18,6 +18,7 @@
   with_items:
     - "{{ paths.FILEBEAT }}"
     - "{{ paths.ELASTICSEARCH }}"
+    - "{{ paths.LOGGING }}"
 
 - name: Sync filebeat config
   synchronize:

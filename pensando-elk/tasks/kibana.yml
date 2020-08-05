@@ -9,6 +9,11 @@
         SERVER_PORT: '5601'
         SERVER_MAXPAYLOADBYTES: '4194304'
         ELASTICSEARCH_HOSTS: http://{{ lookup('env', 'ELASTICSEARCH_HOST') | default('127.0.0.1', true) }}:9200
-        KIBANA_DEFAULTAPPID: 'dashboard/653cf1e0-2fd2-11e7-99ed-49759aed30f5'
+        KIBANA_DEFAULTAPPID: 'dashboard/3548db90-cc62-11ea-918e-c778f7abe5d7'
         LOGGING_DEST: 'stdout'
         LOGGING_QUIET: 'false'
+
+- name: Checking that kibana is up and running
+  wait_for:
+    port: 5601
+    delay: 5

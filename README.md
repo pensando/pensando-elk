@@ -6,7 +6,7 @@ This repository is the starting point for building and utlizing the Elasticstack
 data, both about and traversing, the Pensando DSC(s) within your environment.  The purpose is to consolidate the
 applications and tools used for said monitoring and analysis and deploy them in an automated fashion.
 
-Instantiation can be done on either a single CentOS 7.x or Ubuntu 18.04 (or newer) BMS or VM.
+Instantiation can be done on either a single CentOS 8.x or Ubuntu 18.04 (or newer) BMS or VM.
 This is broken into 3 atomic processes, namely:
 1.) [Installation](docs/install)  (run once)
 2.) [Running](docs/run-pensando-elk)  (recurring)

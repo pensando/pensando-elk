@@ -1,14 +1,38 @@
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat-*"
+setup.template.fields: "fields.yml"
+setup.template.overwrite: true
 filebeat.modules:
+- module: suricata
+  eve:
+    enabled: true
+    var.paths: ["/var/log/suricata/eve.json"]
 - module: pensando
   dfw:
     enabled: true
     syslog_host: 0.0.0.0
     syslog_port: 9001
+- module: zeek
+  connection:
+    enabled: true
+    var.paths: ["/var/log/zeek/conn.log"]
+  dns:
+    enabled: true
+    var.paths: ["/var/log/zeek/dns.log"]
+  tunnel:
+    enabled: true
+    var.paths: ["/var/log/zeek/tunnel.log"]
+  http:
+    enabled: true
+    var.paths: ["/var/log/zeek/http.log"]
+  ssl:
+    enabled: true
+    var.paths: ["/var/log/zeek/ssl.log"]
+  x509:
+    enabled: true
+    var.paths: ["/var/log/zeek/x509.log"]
+  weird:
+    enabled: true
+    var.paths: ["/var/log/zeek/weird:.log"]
 output.elasticsearch:
-  hosts: ["http://localhost:9200"]
-setup.template.enabled: true
-setup.template.name: "pensando"
-setup.template.pattern: "pensando-*"
-setup.template.fields: "/usr/share/filebeat/fields.yml"
-setup.template.overwrite: true
-setup.ilm.enabled: true
+  hosts: ["localhost:9200"]
