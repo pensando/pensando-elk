@@ -11,7 +11,9 @@ Welcome to pensando-elk's documentation!
    :caption: Contents:
 
    overview
-
+   install
+   run
+   setup
 
 
 Indices and tables
