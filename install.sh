@@ -60,13 +60,13 @@ installCentOSPkgs () {
     # Function to check OS and install DNF for Centos7
     if [[ $OS =~ "CentOS" ]] && [[ ! -x "$(command -v dnf)" ]]; then
         echo "[INSTALL] Installing DNF"
-        yum -y install dnf
+        sudo yum -y install dnf
         echo "[INSTALL] DNF installation complete"
     fi
 
     if [[ ! -x "$(command -v python3)" ]]; then
         echo "[INSTALL] Installing Python 3"
-        dnf install python3
+        sudo dnf install python3
         echo "[INSTALL] Python 3 installation complete"
     fi
 
