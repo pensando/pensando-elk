@@ -2,6 +2,10 @@
 
 Install
 -----------------
+.. toctree::
+   :hidden:
+
+   advanced-settings
 
 The install workflow assumes that the system does not have the pre-requisite packages, like
 docker and virtualenv, and will install those.
@@ -15,6 +19,8 @@ do the following:
 3. Give the installing user the ability to run sudo without a password [1]_
 4. Create a virtualenv and install the appropriate libraries (i.e. ansible, click, etc.)
 5. Run ansible playbook(s) to install docker and configure for non-root usage
+
+.. seealso:: If you wish to change any of the settings before installing, visit the :ref:`advanced-settings`
 
 To execute, cd into the base directory of pensando-elk and run the install script:
 

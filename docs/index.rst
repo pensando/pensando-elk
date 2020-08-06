@@ -14,6 +14,7 @@ Pensando ELK analytics documentation
    install
    run
    setup
+   stop
 
 About
 -----

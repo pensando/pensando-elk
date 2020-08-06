@@ -1,5 +1,9 @@
 Overview
 ======================
+.. toctree::
+   :hidden:
+
+   components
 
 Current Verison:  0.0.1a
 
@@ -15,6 +19,7 @@ installing the pensando-elk software, there is a curated view of the following, 
 
     + `Zeek <https://zeek.org/>`_: Configurable packet stream reader that converts ERSPAN III logs to events and alerts
 
+.. seealso:: For more information on each of the components in Pensando-ELK, visit the :ref:`components` page
 
 To use pensando-elk, you only need a CentOS 8 or Ubuntu 18.04 server/VM with the following minimums:
 
