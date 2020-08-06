@@ -2,7 +2,7 @@
   become: true
   tasks:
   - name: Install python modules.
-    shell: "dnf install python3 python-dnf"
+    shell: "dnf install python3"
     args:
       warn: false
   - name: Install dnf-plugins-core to manage DNF repository
