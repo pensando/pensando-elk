@@ -38,6 +38,7 @@ initPlaybook () {
     elif [[ $OS =~ "CentOS" ]]
         then
         PLAYBOOK=install_docker_centos.yml
+        installCentOSPkgs
     elif [[ $OS =~ "RedHat" ]]
         then
         PLAYBOOK=install_docker_centos.yml
@@ -55,7 +56,7 @@ adjustUser () {
     # sudo usermod -a -G docker $userName
 }
 
-installDNF () {
+installCentOSPkgs () {
     # Function to check OS and install DNF for Centos7
     if [[ $OS =~ "CentOS" ]] && [[ ! -x "$(command -v dnf)" ]]; then
         echo "[INSTALL] Installing DNF"
@@ -63,13 +64,17 @@ installDNF () {
         echo "[INSTALL] DNF installation complete"
     fi
 
+    if [[ ! -x "$(command -v python3)" ]]; then
+        echo "[INSTALL] Installing Python 3"
+        dnf install python3
+        echo "[INSTALL] Python 3 installation complete"
+
 }
 ################################################################################
 #                          SYSTEM SETUP
 ################################################################################
 #
 findOS
-installDNF
 initPlaybook
 
 # Figure out who we are so we write the correct paths
@@ -88,7 +93,7 @@ fi
 
 if [ ! -d "./.venv" ]; then
   printf "\n[INSTALL]: $(tput setaf 6)Creating virtualenv$(tput sgr 0)\n"
-  python3.6 -m venv --system-site-packages .venv
+  python3 -m venv --system-site-packages .venv
 fi
 
 printf "\n[INSTALL]: $(tput setaf 6)Activating virtualenv and installing dependencies$(tput sgr 0)\n\n"
