@@ -8,7 +8,7 @@
         # JVM Heap size
         #   - this should be at least 2GB for simple testing, receiving only a few flows per second.
         #   - for production environments upto 31GB is recommended.
-        ES_JAVA_OPTS: '-Xms8g -Xmx8g'
+        ES_JAVA_OPTS: '{{ elasticsearch.ES_JAVA_OPTS }}'
         ELASTIC_PASSWORD: pensando
         cluster.name: pensando.elastic
         node.name: elasticsearch.pensando.dev
