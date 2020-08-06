@@ -68,6 +68,7 @@ installCentOSPkgs () {
         echo "[INSTALL] Installing Python 3"
         dnf install python3
         echo "[INSTALL] Python 3 installation complete"
+    fi
 
 }
 ################################################################################
