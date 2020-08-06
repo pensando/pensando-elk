@@ -8,7 +8,7 @@
     network_mode: host
     env:
       # JVM Heap size - this MUST be at least 3GB (4GB preferred)
-      LS_JAVA_OPTS: '-Xms4g -Xmx4g'
+      LS_JAVA_OPTS: "{{ logstash.EF_LS_JAVA_OPTS }}"
       # ElastiFlow global configuration
       ELASTIFLOW_DEFAULT_APPID_SRCTYPE: "__UNKNOWN"
       ELASTIFLOW_RESOLVE_IP2HOST: "false"
