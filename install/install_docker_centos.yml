@@ -29,3 +29,6 @@
     systemd:
       state: started
       name: docker
+
+  - name: Allow user to run docker commands
+    command: setfacl --modify user:{{ lookup('env','USER') }}:rw /var/run/docker.sock
