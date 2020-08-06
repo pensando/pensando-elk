@@ -3,3 +3,4 @@ Sphinx==3.1.2
 click==6.7
 docker==4.2.2
 rstcheck==3.3.1
+sphinx-rtd-theme==0.5.0

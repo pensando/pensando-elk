@@ -1,7 +1,17 @@
+.. _over_view:
+
+**********************
 Overview
-======================
+**********************
+.. toctree::
+   :hidden:
+
+   components
 
 Current Verison:  0.0.1a
+
+.. seealso:: For more information on each of the components in Pensando-ELK, visit the :ref:`components`
+
 
 The pensando-elk implementation is a combination of several open source, Elastic based applications
 plus the Pensando Systems implementation of Elastic logstash/filebeat applications.  By downloading and
@@ -14,6 +24,7 @@ installing the pensando-elk software, there is a curated view of the following, 
     + `Suricata <https://suricata-ids.org/>`_: Network threat detection engine using ERSPAN II logs
 
     + `Zeek <https://zeek.org/>`_: Configurable packet stream reader that converts ERSPAN III logs to events and alerts
+
 
 
 To use pensando-elk, you only need a CentOS 8 or Ubuntu 18.04 server/VM with the following minimums:
