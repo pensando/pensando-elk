@@ -66,7 +66,7 @@ installCentOSPkgs () {
 
     if [[ ! -x "$(command -v python3)" ]]; then
         echo "[INSTALL] Installing Python 3"
-        sudo dnf install python3
+        sudo dnf install python3 -y
         echo "[INSTALL] Python 3 installation complete"
     fi
 
