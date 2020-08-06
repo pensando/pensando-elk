@@ -1,45 +1,28 @@
----
-- name: Install Docker and Docker Compose on CentOS
-  hosts: all
+- hosts: localhost
   become: true
+  tasks:
+  - name: Install python modules.
+    shell: "dnf install python3 python-dnf"
+    args:
+      warn: false
+  - name: Install dnf-plugins-core to manage DNF repository
+    shell: "dnf -y install dnf-plugins-core"
+    args:
+      warn: false
 
-tasks:
-- name: Upgrade all packages
-  yum: name=* state=latest
+  - name: Add docker repo
+    shell:  'dnf config-manager \
+      --add-repo \
+      https://download.docker.com/linux/centos/docker-ce.repo'
+    args:
+      warn: false
 
-- name: Check if Docker is installed
-  command: systemctl status docker
-  register: docker_check
-  ignore_errors: yes
+  - name: Install Docker and Containerd
+    shell: "dnf -y install docker-ce docker-ce-cli containerd.io"
+    args:
+      warn: false
 
-- name: Download the Docker installer
-  get_url:
-    url: https://get.docker.com/
-    dest: /root/install_docker.sh
-    mode: 0700
-  when: docker_check.stderr.find('service could not be found') != -1
-
-- name: Install Docker
-  shell: /root/install_docker.sh
-  when: docker_check.stderr.find('service could not be found') != -1
-
-- name: Remove the Docker installer file.
-  file:
-    state: absent
-    path: /root/install_docker.sh
-
-- name: Enable the Docker daemon in systemd
-  systemd:
-    name: docker
-    enabled: yes
-    masked: no
-
-- name: Start the Docker daemon
-  systemd:
-    name: docker
-    state: started
-    masked: no
-
-- name: Install Docker Module for Python
-  pip:
-    name: docker
+  - name: Start docker service
+    systemd:
+      state: started
+      name: docker
