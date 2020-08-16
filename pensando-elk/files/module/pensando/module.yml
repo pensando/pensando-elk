@@ -1,1 +1,7 @@
 ---
+dashboards:
+    - id: c2c45910-cc4c-11ea-918e-c778f7abe5d7
+      file: Pensando-overview.json
+
+    - id: d74c1400-cc87-11ea-918e-c778f7abe5d7
+      file: Pensando-SOC.json

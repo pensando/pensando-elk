@@ -44,5 +44,5 @@ Filebeat
 Suricata
 ------------------
     - Hub Repository: jasonish/suricata:latest
-    - Container Name: pensando-filebeat
+    - Container Name: suricata
     - Description:
