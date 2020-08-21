@@ -1,6 +1,7 @@
-[![Pensando](https://pensando.io/wp-content/themes/pensando/assets/images/logo.svg)](https://pensando.io)
-# pensando-elk
-ELKB based analytics for Pensado Systems
+<img src="https://pensando.io/wp-content/themes/pensando/assets/images/logo.svg" alt="My cool logo" width="350"/>
+
+
+ELK based analytics for Pensado Systems
 
 This repository is the starting point for building and utlizing the Elasticstack for monitoring and analyzing
 data, both about and traversing, the Pensando DSC(s) within your environment.  The purpose is to consolidate the
