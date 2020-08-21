@@ -11,6 +11,7 @@ Pensando ELK analytics documentation
    :caption: Contents:
 
    overview
+   download
    install
    run
    setup
