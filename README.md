@@ -20,6 +20,7 @@ In addition to the base ElasticStack it also contains:
 - [Suricata](https://suricata-ids.org/)
 - [Zeek](https://zeek.org/)
 
-
+## Installation
+To install and run Pensando ELK, refer to the [documentation at rtfd.io](http://pensando-elk.rtfd.io)
 ## Support Policy
 The code and templates in the repo are released under an as-is, best effort, support policy. These scripts should be seen as community supported and Pensando will contribute our expertise as and when possible. We do not provide technical support or help in using or troubleshooting the components of the project through our normal support options. Unless explicitly tagged, all projects or work posted in our GitHub repository (at https://github.com/Pensando) or sites other than our official Downloads page on https://support.pensando.io are provided under the best effort policy.
