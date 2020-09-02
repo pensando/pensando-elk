@@ -2,7 +2,7 @@
   become: true
   tasks:
   - name: Install python modules.
-    shell: "dnf install python3 python-dnf"
+    shell: "dnf install python3"
     args:
       warn: false
   - name: Install dnf-plugins-core to manage DNF repository
@@ -17,8 +17,11 @@
     args:
       warn: false
 
-  - name: Install Docker and Containerd
-    shell: "dnf -y install docker-ce docker-ce-cli containerd.io"
+  - name: Install containerd
+    shell: "dnf -y install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm"
+
+  - name: Install Docker
+    shell: "dnf -y install docker-ce docker-ce-cli"
     args:
       warn: false
 
@@ -26,3 +29,6 @@
     systemd:
       state: started
       name: docker
+
+  - name: Allow user to run docker commands
+    command: setfacl --modify user:{{ lookup('env','USER') }}:rw /var/run/docker.sock

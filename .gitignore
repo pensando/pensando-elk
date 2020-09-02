@@ -135,7 +135,7 @@ pensando-elk/filebeat
 .vscode
 pensando-elk/logs/suricata_logs/*
 
-# Sphinx doc supporting files and dirs
-_build
-_static
-_templates
+# # Sphinx doc supporting files and dirs
+# _build
+# _static
+# _templates

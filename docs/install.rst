@@ -9,7 +9,8 @@ Install
    advanced-settings
 
 The install workflow assumes that the system does not have the pre-requisite packages, like
-docker and virtualenv, and will install those.
+docker and virtualenv, and will install those.  If you already have docker, python3.6 or python3-venv
+this installer *may* change one, or more, of those packages.
 
 
 All that is really needed is a base OS of CentOS 8.x or Ubuntu 18.04 and the installer will

@@ -1,5 +1,12 @@
 ---
 base_path: "{{ playbook_dir }}/pensando-elk"
+
+elasticsearch:
+  ES_JAVA_OPTS: "-Xms8g -Xmx8g"
+
+logstash:
+  EF_LS_JAVA_OPTS: "-Xms4g -Xmx4g"
+
 paths:
   FILEBEAT: "{{ base_path }}/filebeat"
   ELASTICSEARCH: "{{ base_path }}/es_data"
