@@ -4,6 +4,7 @@
     image: "docker.elastic.co/elasticsearch/elasticsearch:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}"
     name: elasticsearch
     network_mode: host
+    restart_policy: always
     env:
         # JVM Heap size
         #   - this should be at least 2GB for simple testing, receiving only a few flows per second.

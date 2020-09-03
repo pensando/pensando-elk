@@ -18,3 +18,4 @@
     env:
       strict.perms: 'false'
     network_mode: host
+    restart_policy: always
