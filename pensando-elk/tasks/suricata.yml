@@ -5,6 +5,7 @@
     command: -i {{ ansible_default_ipv4.interface }}
     name: suricata
     network_mode: host
+    restart_policy: always
     volumes:
         - '{{ paths.LOGGING }}/suricata_logs:/var/log/suricata'
         - '{{ paths.ETC }}/suricata:/etc/suricata'
