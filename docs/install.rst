@@ -24,7 +24,7 @@ do the following:
 
 .. seealso:: If you wish to change any of the settings before installing, visit the :ref:`advanced-settings`
 
-To execute, cd into the base directory of pensando-elk and run the install script:
+To execute, cd into the base directory of pensando-elk and run the install script as you (do not use sudo):
 
 .. code-block:: bash
 
