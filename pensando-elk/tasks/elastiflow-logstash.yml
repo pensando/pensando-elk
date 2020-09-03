@@ -6,6 +6,7 @@
     volumes:
       - '{{ paths.ELASTIFLOW }}/ipfix.yml:/etc/logstash/elastiflow/definitions/ipfix.yml:ro'
     network_mode: host
+    restart_policy: always
     env:
       # JVM Heap size - this MUST be at least 3GB (4GB preferred)
       LS_JAVA_OPTS: "{{ logstash.EF_LS_JAVA_OPTS }}"

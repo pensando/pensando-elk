@@ -4,6 +4,7 @@
     image: docker.elastic.co/kibana/kibana:{{ lookup('env', 'ELK_TAG') | default('7.8.0', true) }}
     name: kibana
     network_mode: host
+    restart_policy: always
     env:
         SERVER_HOST: 0.0.0.0
         SERVER_PORT: '5601'
