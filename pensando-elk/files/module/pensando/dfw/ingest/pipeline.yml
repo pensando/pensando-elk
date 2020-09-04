@@ -7,7 +7,7 @@ processors:
 - grok:
     field: event.original
     patterns:
-      - "%{SYSLOG5424PRI}%{NONNEGINT:syslog5424_ver}%{SPACE}+(?:%{TIMESTAMP_ISO8601:syslog5424_ts}|-)%{SPACE}+(?:%{IPORHOST:syslog5424_host}|-)%{SPACE}+(-|%{SYSLOG5424PRINTASCII:syslog5424_app})%{SPACE}+(-|%{SYSLOG5424PRINTASCII:syslog5424_proc})%{SPACE}+(?::-|%{SYSLOG5424PRINTASCII:syslog5424_msgid})%{SPACE}+\\[%{GREEDYDATA:payload_raw}\\]$"
+      - "%{SYSLOG5424PRI}%{NONNEGINT:syslog5424_ver} +(?:%{TIMESTAMP_ISO8601:syslog5424_ts}|-) +(?:%{IPORHOST:syslog5424_host}|-) +(-|%{SYSLOG5424PRINTASCII:syslog5424_app}) +(-|%{SYSLOG5424PRINTASCII:syslog5424_proc}) +(?::-|%{SYSLOG5424PRINTASCII:syslog5424_msgid}) +\\[%{GREEDYDATA:payload_raw}\\]$"
 - json:
     field: payload_raw
     target_field: json
