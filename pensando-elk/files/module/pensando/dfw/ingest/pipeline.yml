@@ -1,32 +1,32 @@
 ---
-description: Pipeline for parsing Penando DFW logs 
-processors: 
+description: Pipeline for parsing Penando DFW logs
+processors:
 - rename:
     field: message
     target_field: event.original
 - grok:
     field: event.original
-    patterns: 
-      - "%{SYSLOG5424PRI}%{NONNEGINT:syslog5424_ver} +(?:%{TIMESTAMP_ISO8601:syslog5424_ts}|-) +(?:%{IPORHOST:syslog5424_host}|-) +(-|%{SYSLOG5424PRINTASCII:syslog5424_app}) +(-|%{SYSLOG5424PRINTASCII:syslog5424_proc}) +(?::-|%{SYSLOG5424PRINTASCII:syslog5424_msgid}) +\\[%{GREEDYDATA:payload_raw}\\]$"
+    patterns:
+      - "%{SYSLOG5424PRI}%{NONNEGINT:syslog5424_ver}%{SPACE}+(?:%{TIMESTAMP_ISO8601:syslog5424_ts}|-)%{SPACE}+(?:%{IPORHOST:syslog5424_host}|-)%{SPACE}+(-|%{SYSLOG5424PRINTASCII:syslog5424_app})%{SPACE}+(-|%{SYSLOG5424PRINTASCII:syslog5424_proc})%{SPACE}+(?::-|%{SYSLOG5424PRINTASCII:syslog5424_msgid})%{SPACE}+\\[%{GREEDYDATA:payload_raw}\\]$"
 - json:
-    field: payload_raw 
+    field: payload_raw
     target_field: json
-- remove: 
+- remove:
     field: syslog5424_sd
     ignore_missing: true
-- remove: 
+- remove:
     field: syslog5424_app
     ignore_missing: true
-- remove: 
+- remove:
     field: syslog5424_host
     ignore_missing: true
 - remove:
     field: syslog5424_msgid
     ignore_missing: true
-- remove: 
+- remove:
     field: syslog5424_pri
     ignore_missing: true
-- remove: 
+- remove:
     field: syslog5424_proc
     ignore_missing: true
 - remove:
@@ -182,9 +182,9 @@ processors:
     value: 'allowed'
     if: '[''allow''].contains(ctx.pensando.dfw?.action)'
 - set:
-    field: rule.id 
+    field: rule.id
     value: '{{pensando.dfw.rule_id}}'
-    ignore_failure: true 
+    ignore_failure: true
 - set:
     field: event.outcome
     value: success
@@ -209,7 +209,7 @@ processors:
       - json
       - payload_raw
     ignore_missing: true
-on_failure: 
+on_failure:
 - set:
     field: error.message
     value: '{{ _ingest.on_failure_message }}'
