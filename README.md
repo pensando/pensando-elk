@@ -9,9 +9,9 @@ applications and tools used for said monitoring and analysis and deploy them in 
 
 Instantiation can be done on either a single CentOS 8.x or Ubuntu 18.04 (or newer) BMS or VM.
 This is broken into 3 atomic processes, namely:
-1.) [Installation](docs/install)  (run once)
-2.) [Running](docs/run-pensando-elk)  (recurring)
-3.) [Setup](docs/setup)  (run once)
+1.) [Installation](https://pensando-elk.readthedocs.io/en/latest/install.html)  (run once)
+2.) [Running](https://pensando-elk.readthedocs.io/en/latest/run.html)  (recurring)
+3.) [Setup](https://pensando-elk.readthedocs.io/en/latest/setup.html)  (run once)
 
 
 In addition to the base ElasticStack it also contains:

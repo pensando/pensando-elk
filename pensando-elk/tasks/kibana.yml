@@ -17,4 +17,4 @@
 - name: Checking that kibana is up and running
   wait_for:
     port: 5601
-    delay: 30
+    delay: 120
