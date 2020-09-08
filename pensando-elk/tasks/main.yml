@@ -6,3 +6,4 @@
 - include: tasks/elastiflow-logstash.yml
 - include: tasks/pensando-filebeat-setup.yml
 - include: tasks/pensando-filebeat.yml
+- include: tasks/final.yml
