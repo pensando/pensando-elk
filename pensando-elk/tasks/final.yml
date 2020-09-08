@@ -1,8 +1,6 @@
 ---
 - name: Install Elastiflow dashboards
-  warn: false
   shell: 'curl -X POST localhost:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@pensando-elk/files/etc/elastiflow/elastiflow.ndjson'
 
 - name: Install Pensando dashboards
-  warn: false
   shell: 'curl -X POST localhost:5601/api/saved_objects/_import?overwrite=true -H "kbn-xsrf: true" --form file=@pensando-elk/files/etc/pensando/pensando.ndjson'
