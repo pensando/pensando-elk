@@ -7,7 +7,7 @@ To stop the cluster from running, issue the following command
 
 .. code-block:: bash
 
-    ansible-playbook stop-elk.yaml
+    ansible-playbook stop_elk.yml
 
 
 This will stop the following containers:
