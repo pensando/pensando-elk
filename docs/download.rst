@@ -8,7 +8,7 @@ Download
 
    advanced-settings
 
-To download Pensando ELK, login to your Ubuntu/CentOS system and issue the following
+To download Pensando ELK, login to your Ubuntu/CentOS system as a non-root user** and issue the following
 command:
 
 .. code-block:: bash
@@ -18,3 +18,7 @@ command:
 
 This will clone the repository into the pensando-elk directory.  Change into that
 directory and :ref:`install-pensando-elk` pensando-elk
+
+
+** This is the same user that you will be running the installer as.  Do not install pensando-elk
+as the root user.
